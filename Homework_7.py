@@ -198,7 +198,14 @@ def find_contact(args, book):
         raise KeyError("Contact not found.")
     return f"Name: {record.name.value}, Phones: {', '.join(phone.value for phone in record.phones)}"
 
-
+@input_error
+def add_birthday(args, book):
+    name, birthday, *_ = args
+    record = book.find(name)
+    if record is None:
+        raise KeyError("Contact not found.")
+    record.add_birthday(birthday)
+    return "Birthday added."
 
 @input_error
 def show_birthday(args, book):
